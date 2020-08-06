@@ -1,0 +1,20 @@
+.Paper {
+    display: flex;
+}
+
+.Card {
+    margin-top: 1% !important;
+    align-content: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.Container {
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+}
+
+.root {
+    text-align: center !important;
+}

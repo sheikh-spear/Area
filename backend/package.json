@@ -1,0 +1,32 @@
+{
+  "name": "arealogin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^2.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.0.1",
+    "es6-promise": "^4.2.8",
+    "express": "^4.17.1",
+    "github-api": "^3.3.0",
+    "headers": "^0.9.6",
+    "isomorphic-fetch": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0",
+    "node-ip": "^0.1.2",
+    "reddit": "^1.0.3",
+    "simple-oauth2": "^3.3.0",
+    "snoowrap": "^1.20.1",
+    "spotify-web-api-node": "^4.0.0",
+    "uuid": "^3.4.0"
+  }
+}

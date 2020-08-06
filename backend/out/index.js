@@ -1,0 +1,21 @@
+var graph = require("@microsoft/microsoft-graph-client");
+require("es6-promise").polyfill();
+require("isomorphic-fetch");
+
+const start = new Date(new Date().setHours(0, 0, 0));
+// Set end of the calendar view to 7 days from start
+const end = new Date(new Date(start).setDate(start.getDate() + 7));
+const client = graph.Client.init({
+  authProvider: done => {
+    done(null, "eyJ0eXAiOiJKV1QiLCJub25jZSI6InlpUjREQjdTMGd5aVBJUDJBWW9jb0NaZWpnLWstNHhJMm9FSnNKZUpiUGsiLCJhbGciOiJSUzI1NiIsIng1dCI6IkhsQzBSMTJza3hOWjFXUXdtak9GXzZ0X3RERSIsImtpZCI6IkhsQzBSMTJza3hOWjFXUXdtak9GXzZ0X3RERSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85MDFjYjRjYS1iODYyLTQwMjktOTMwNi1lNWNkMGY2ZDlmODYvIiwiaWF0IjoxNTgzNzY1OTIyLCJuYmYiOjE1ODM3NjU5MjIsImV4cCI6MTU4Mzc2OTgyMiwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFTUUEyLzhPQUFBQTVaUW9UbjVBaEZZUzA2YnQ3N1RxT0JyMEF1M2dPdUxic0ptL3k2QkVsMUU9IiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJERVZBUkVBIiwiYXBwaWQiOiI3MGU2ZDU3Zi05YzkyLTRkZGEtYjk3MS01YTZhYTVmMmQxZDMiLCJhcHBpZGFjciI6IjAiLCJmYW1pbHlfbmFtZSI6Ikhhb3VhbSIsImdpdmVuX25hbWUiOiJJc21haWwiLCJpcGFkZHIiOiIxNjMuNS4yMjAuOCIsIm5hbWUiOiJpc21haWwgaGFvdWFtIiwib2lkIjoiZjAzYTE5N2ItMDllYy00YTg2LWEwNzUtNmE1NDJjYjg2ZjgxIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTE1NTI0MzUyNzctMTU5NjQ5NTc5NS0zMDg5NjEzNzMxLTI4NzA2IiwicGxhdGYiOiIxNCIsInB1aWQiOiIxMDAzMDAwMDlBODQ3MDVBIiwic2NwIjoiQ2FsZW5kYXJzLlJlYWQgQ29udGFjdHMuUmVhZCBNYWlsLlJlYWQgb3BlbmlkIHByb2ZpbGUgVXNlci5SZWFkIGVtYWlsIiwic2lnbmluX3N0YXRlIjpbImttc2kiXSwic3ViIjoiRGR4T2kyQUR5WWpnaElZTDZwbmllaUc3UU5JNWlMckFFWDBUVFZhZENtTSIsInRpZCI6IjkwMWNiNGNhLWI4NjItNDAyOS05MzA2LWU1Y2QwZjZkOWY4NiIsInVuaXF1ZV9uYW1lIjoiaXNtYWlsLmhhb3VhbUBlcGl0ZWNoLmV1IiwidXBuIjoiaXNtYWlsLmhhb3VhbUBlcGl0ZWNoLmV1IiwidXRpIjoiS3YyVUJsQ2ZwMHVEWmxRaG9MUzJBQSIsInZlciI6IjEuMCIsInhtc19zdCI6eyJzdWIiOiJqLTRKUnVCd01mdDFURlNQYVB3bnBjWVA4NTdxRzZpbUlfRzh5b2RoYWZ3In0sInhtc190Y2R0IjoxNDE3ODA0ODg3fQ.R-CymJMgrXw2FVIo-0Y4dmd5eTlu8b54NvGQjVTddVuwOYrHNlMHeIPHjRbYe_4PAm9uTxnV8ztPD1T-_GyDBLj7Zq0mbOh0OybbwMY1AyRXdUUPDX_J7CXi7Gp-xb28fOJWSjruJqRwUwlMNCr5_Wy29gp1BgLB-WAOIgcwsPjKBgr9oTMjEFain9LZdPRcrAlW7N-76nZvRsvy--seNF8xLpZQu8GU7Je7iPvMUaIzLqxUQQIWz60gs5mw9KnU004AUu5Vh2FzUax0gX5kKfrbjjQJyuXXwD3Ki9lI7svvmjMr4XWq1JRoux46pkNCUPKBsP8F_6rW7JjFEv9aSw");
+  }
+});
+client
+  .api(
+    `/me/calendarView?startDateTime=${start.toISOString()}&endDateTime=${end.toISOString()}`
+  )
+  .top(10)
+  .select("subject,start,end,attendees")
+  .orderby("start/dateTime DESC")
+  .get()
+  .then(result => console.log(result)).catch(e => console.log(e));

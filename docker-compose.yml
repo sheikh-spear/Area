@@ -1,0 +1,49 @@
+version: '3'
+services:
+    mysql:
+        build: ./mysql
+        ports:
+            - "13306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: users
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: nimad
+        networks:
+            - area-network
+        volumes:
+            - ./mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+            - db-data:/var/lib/mysql
+
+    server:
+        build: ./backend
+        ports:
+            - "8080:8080"
+        networks:
+            - area-network
+        depends_on:
+            - mysql
+        volumes:
+            - ./backend:/backend
+
+    client_web:
+        build: ./frontend_web
+        ports:
+            - "8081:3000"
+        depends_on:
+            - server
+        volumes:
+            - ./frontend_web:/web
+            - area-data:/area
+
+    client_mobile:
+          build: ./frontend_mobile
+          volumes:
+              - area-data:/area
+
+volumes:
+    db-data:
+    area-data:
+
+networks:
+    area-network:
